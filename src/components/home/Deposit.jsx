@@ -1,8 +1,8 @@
 import Cookies from "js-cookie";
 import { SERVER_URL } from "../../utils/utils";
-import { TransactionReceipt } from "./TransactionReceipt.jsx";
+import TransactionReceipt from "./TransactionReceipt";
 import { useState } from "react";
-import "../../styles/styles.css";
+import "../../styles/styles.css"; // Import unified styles
 
 export const Deposit = () => {
   const [showTransactionReceipt, setShowTransactionReceipt] = useState({
@@ -59,28 +59,37 @@ export const Deposit = () => {
   };
 
   return (
-    <form className="form" onSubmit={doDeposit}>
-      <p id="error-message"></p>
-      <label htmlFor="account-number-ip">Beneficiary Account Number</label>
-      <input
-        type="text"
-        name="account-number-ip"
-        id="account-number-ip"
-        placeholder="Account Number"
-        required
-      />
-
-      <label htmlFor="amount-ip">Deposit Amount</label>
-      <input
-        type="number"
-        name="amount-ip"
-        id="amount-ip"
-        placeholder="Amount"
-        required
-      />
-
-      <button type="submit">Deposit Now</button>
-      {showTransactionReceipt.visibility && <TransactionReceipt />}
-    </form>
+    <div className="container">
+      <form className="form" onSubmit={doDeposit}>
+        <p id="error-message" className="error-message"></p>
+        <div className="form-group">
+          <label htmlFor="account-number-ip">Beneficiary Account Number</label>
+          <input
+            type="text"
+            name="account-number-ip"
+            id="account-number-ip"
+            placeholder="Account Number"
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="amount-ip">Amount</label>
+          <input
+            type="number"
+            name="amount-ip"
+            id="amount-ip"
+            placeholder="Amount"
+            required
+          />
+        </div>
+        <button type="submit">Deposit Now</button>
+        {showTransactionReceipt.visibility && (
+          <TransactionReceipt
+            transactionId={showTransactionReceipt.transactionId}
+            balance={showTransactionReceipt.balance}
+          />
+        )}
+      </form>
+    </div>
   );
 };

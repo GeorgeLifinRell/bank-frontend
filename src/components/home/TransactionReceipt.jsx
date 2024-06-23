@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import "../../styles/transactionReceipt.css";
 
-export const TransactionReceipt = ({ transactionId, balance }) => {
+const TransactionReceipt = ({ transactionId, balance }) => {
   return (
     <div className="transaction-receipt">
       <h2>Transaction Receipt</h2>
@@ -19,3 +19,5 @@ TransactionReceipt.propTypes = {
   transactionId: PropTypes.string.isRequired,
   balance: PropTypes.string.isRequired,
 };
+
+export default TransactionReceipt;

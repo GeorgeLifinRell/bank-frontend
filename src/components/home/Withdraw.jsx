@@ -1,7 +1,8 @@
-import { useState } from "react";
 import Cookies from "js-cookie";
 import { SERVER_URL } from "../../utils/utils";
-import { TransactionReceipt } from "./TransactionReceipt";
+import { useState } from "react";
+import TransactionReceipt from "./TransactionReceipt.jsx";
+import "../../styles/styles.css"; // Import unified styles
 
 export const Withdraw = () => {
   const [showTransactionReceipt, setShowTransactionReceipt] = useState({
@@ -33,7 +34,7 @@ export const Withdraw = () => {
     };
 
     try {
-      const response = await fetch(`${SERVER_URL}/account/deposit`, {
+      const response = await fetch(`${SERVER_URL}/account/withdraw`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -46,7 +47,7 @@ export const Withdraw = () => {
         errorEl.textContent = responseBody.errorMessage;
         return;
       }
-      alert("Deposit Success!");
+      alert("Withdrawal Success!");
       setShowTransactionReceipt({
         visibility: true,
         transactionId: responseBody.transactionId,
@@ -58,28 +59,37 @@ export const Withdraw = () => {
   };
 
   return (
-    <form className="form" onSubmit={doWithdraw}>
-      <p id="error-message"></p>
-      <label htmlFor="account-number-ip">Beneficiary Account Number</label>
-      <input
-        type="text"
-        name="account-number-ip"
-        id="account-number-ip"
-        placeholder="Account Number"
-        required
-      />
-
-      <label htmlFor="amount-ip">Withdraw Amount</label>
-      <input
-        type="number"
-        name="amount-ip"
-        id="amount-ip"
-        placeholder="Amount"
-        required
-      />
-
-      <button type="submit">Withdraw Now</button>
-      {showTransactionReceipt.visibility && <TransactionReceipt />}
-    </form>
+    <div className="container">
+      <form className="form" onSubmit={doWithdraw}>
+        <p id="error-message" className="error-message"></p>
+        <div className="form-group">
+          <label htmlFor="account-number-ip">Beneficiary Account Number</label>
+          <input
+            type="text"
+            name="account-number-ip"
+            id="account-number-ip"
+            placeholder="Account Number"
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="amount-ip">Amount</label>
+          <input
+            type="number"
+            name="amount-ip"
+            id="amount-ip"
+            placeholder="Amount"
+            required
+          />
+        </div>
+        <button type="submit">Withdraw Now</button>
+        {showTransactionReceipt.visibility && (
+          <TransactionReceipt
+            transactionId={showTransactionReceipt.transactionId}
+            balance={showTransactionReceipt.balance}
+          />
+        )}
+      </form>
+    </div>
   );
 };

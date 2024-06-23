@@ -1,44 +1,46 @@
 import { useState } from "react";
 import { Deposit } from "../components/home/Deposit";
 import { Withdraw } from "../components/home/Withdraw";
-import "../default.css";
+import RecentTransactions from "../components/home/RecentTransactions";
 import "../styles/styles.css";
 
 const Home = () => {
-  const [showDepositComponent, setShowDepositComponent] = useState(false);
-  const [showWithdrawComponent, setShowWithdrawComponent] = useState(false);
+  const [showComponent, setShowComponent] = useState("");
 
-  const handleDeposit = () => {
-    setShowWithdrawComponent(false);
-    setShowDepositComponent(true);
-  };
-
-  const handleWithdraw = () => {
-    setShowDepositComponent(false);
-    setShowWithdrawComponent(true);
+  const handleComponentDisplay = (component) => {
+    setShowComponent(component);
   };
 
   return (
-    <>
-      <div>
-        <h2>Home Page</h2>
-        {/* <Typography>Home Page</Typography> */}
-        <p>Welcome to the Home Page!</p>
-      </div>
-
+    <div className="container">
+      <h2>Home Page</h2>
+      <p>Welcome to the Home Page!</p>
       <div className="button-group">
-        <button className="button clickable" onClick={handleDeposit}>
+        <button
+          className="button clickable"
+          onClick={() => handleComponentDisplay("deposit")}
+        >
           Deposit
         </button>
-        <button className="button clickable" onClick={handleWithdraw}>
+        <button
+          className="button clickable"
+          onClick={() => handleComponentDisplay("withdraw")}
+        >
           Withdraw
+        </button>
+        <button
+          className="button clickable"
+          onClick={() => handleComponentDisplay("recentTransactions")}
+        >
+          Get recent transactions
         </button>
       </div>
       <div>
-        {showDepositComponent && <Deposit />}
-        {showWithdrawComponent && <Withdraw />}
+        {showComponent === "deposit" && <Deposit />}
+        {showComponent === "withdraw" && <Withdraw />}
+        {showComponent === "recentTransactions" && <RecentTransactions />}
       </div>
-    </>
+    </div>
   );
 };
 
