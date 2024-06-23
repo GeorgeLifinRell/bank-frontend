@@ -1,0 +1,19 @@
+.transaction-receipt {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #4caf50;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #e8f5e9;
+  }
+  
+  .transaction-receipt h2 {
+    margin-top: 0;
+    color: #388e3c;
+  }
+  
+  .transaction-receipt p {
+    margin: 8px 0;
+    font-size: 16px;
+  }
